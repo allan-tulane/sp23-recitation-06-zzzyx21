@@ -34,27 +34,47 @@ def make_huffman_tree(f):
     # create a new node z with x and y as children,
     # insert z into the priority queue (using an empty character "")
     while (p.qsize() > 1):
-        # TODO
-        
-    # return root of the tree
+		# TODO
+    	x = p.get()
+    	y = p.get()
+    	p.put(TreeNode(y,x,(y.data[0]+x.data[0], y.data[1]+x.data[1])))
+	# return root of the tree
     return p.get()
 
 # perform a traversal on the prefix code tree to collect all encodings
 def get_code(node, prefix="", code={}):
     # TODO - perform a tree traversal and collect encodings for leaves in code
-    pass
+	if (node.left == None and node.right == None):
+		code[node.data[1]] = prefix
+		return code
+	else:
+		if node.left != None:
+			result = get_code(node.left, prefix+"0", code)
+		if node.right != None:
+			next = get_code(node.right, prefix+"1", code)
+		result.update(next)
+		return result
+	pass
 
 # given an alphabet and frequencies, compute the cost of a fixed length encoding
 def fixed_length_cost(f):
     # TODO
-    pass
+	number = 0
+	for i in f.keys():
+		number += f[i]
+	return len(f.keys())*math.ceil(math.log(len(f.keys()),2))
+	pass
 
 # given a Huffman encoding and character frequencies, compute cost of a Huffman encoding
 def huffman_cost(C, f):
     # TODO
-    pass
+	res = 0
+	for i in f.keys():
+		res = res + f[i]*len(C[i])
+	return res
+	pass
 
-f = get_frequencies('f1.txt')
+f = get_frequencies('fields.c')
 print("Fixed-length cost:  %d" % fixed_length_cost(f))
 T = make_huffman_tree(f)
 C = get_code(T)
