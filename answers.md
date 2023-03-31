@@ -23,4 +23,4 @@ I think there is a consistent trend. Huffman cost is a much more than fixed-leng
 
 - **e.**
 
-The frequency of encoding times multiplied by the durations of the encoding times combined together gives the projected cost of a Huffman encoding for the document, and it is consistent across the document.
+If every character had the same frequency, the characters can be considered to be paired arbitrarity and a balanced tree could be established bottom up. It wuold be logarithmic in alphabet order with different depth.
